@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class EmployeeRepository implements CrudRepository<EmployeeEntity> {
@@ -40,7 +39,25 @@ public class EmployeeRepository implements CrudRepository<EmployeeEntity> {
         return employeeEntities;
     }
 
-    public Optional<EmployeeEntity> findById(long id) {
-        return Optional.empty();
+    public EmployeeEntity findById(long id) {
+
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+
+            try {
+                ResultSet resultSet = databaseConnection.read("select * from employee e where e.id=" +id);
+                while (resultSet.next()) {
+                    employeeEntity.setId(resultSet.getInt("id"));
+                    employeeEntity.setAge(resultSet.getInt("age"));
+                    employeeEntity.setName(resultSet.getString("name"));
+                    employeeEntity.setCity(resultSet.getString("city"));
+                    employeeEntity.setPhone(resultSet.getString("phone_no"));
+                }
+
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+            }
+
+            return employeeEntity;
     }
 }

@@ -20,7 +20,7 @@ public interface CrudRepository <T> {
      * @return the entity with the given id or {@literal Optional#empty()} if none found
      * @throws IllegalArgumentException if {@code id} is {@literal null}.
      */
-    Optional<T> findById (long id);
+    T findById (long id);
 
 
 }

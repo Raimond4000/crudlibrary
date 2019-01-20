@@ -6,9 +6,10 @@ import com.sda.database.connection.MysqlDatabaseConnection;
 import com.sda.database.entity.EmployeeEntity;
 import com.sda.database.property.ConnectionProperty;
 import com.sda.database.repository.EmployeeRepository;
+import lombok.extern.java.Log;
 
 import java.util.List;
-
+@Log
 
 public class CrudExample {
 
@@ -32,6 +33,8 @@ public class CrudExample {
                     , employeeEntity.getId(), employeeEntity.getName(), employeeEntity.getCity()
                     , employeeEntity.getPhone(), employeeEntity.getAge()));
         }
-
+        log.info("usage of findById");
+        EmployeeEntity employeeEntity = employeeRepository.findById(1L);
+        System.out.println(employeeEntity.getName() != null ? employeeEntity.toString() : "No employee found");
     }
 }
